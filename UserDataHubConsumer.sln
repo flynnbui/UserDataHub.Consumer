@@ -3,12 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserDataHubConsumer", "UserDataHubConsumer\UserDataHubConsumer.csproj", "{E68FCED7-715A-4B13-B4CF-6C8A28F63584}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserDataHub.Consumer", "UserDataHubConsumer\UserDataHub.Consumer.csproj", "{E68FCED7-715A-4B13-B4CF-6C8A28F63584}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1CB40434-DDED-4CFA-8936-D760A20CC764} = {1CB40434-DDED-4CFA-8936-D760A20CC764}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserDataHub.Consumer.Core", "UserDataHub.Consumer.Core\UserDataHub.Consumer.Core.csproj", "{1CB40434-DDED-4CFA-8936-D760A20CC764}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserDataHub.Consumer.Core", "UserDataHub.Consumer.Core\UserDataHub.Consumer.Core.csproj", "{1CB40434-DDED-4CFA-8936-D760A20CC764}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 ﻿namespace UserDataHub.Consumer.Core.Interfaces
 {
-    public interface IRabbitMQService: IDisposable
+    public interface IRabbitMQService : IHostedService
     {
         void ReadMessages();
     }
