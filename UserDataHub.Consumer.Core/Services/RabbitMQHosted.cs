@@ -1,13 +1,13 @@
-﻿using RabbitMQ.Client;
-using UserDataHub.Consumer.Core.Receiver;
+﻿using UserDataHub.Consumer.Core.Receiver;
+using UserDataHub.Consumer.Core.Settings;
 using UserDataHubConsumer.Service;
 
 namespace UserDataHub.Consumer.Core.Services
 {
     public class RabbitMQHosted : RabbitMQService
     {
-        public RabbitMQHosted(IServiceProvider services, IConfiguration configuration)
-            : base(services, configuration, UserDataReceiver.RouteKey, UserDataReceiver.QueueName)
+        public RabbitMQHosted(IServiceProvider services, IConfiguration configuration, RabbitMQSettings rabbitMQSettings)
+            : base(services, configuration, rabbitMQSettings)
         { }
 
         protected override async Task<bool> ProcessAsync(string message)
@@ -20,7 +20,9 @@ namespace UserDataHub.Consumer.Core.Services
             var userDataList = userDataTransfer.UserDataList;
             try
             {
-                await Task.Run(() => Console.WriteLine(message)); // Simulate an async operation
+                // Simulate an async operation
+                await Task.Run(() => Console.WriteLine(message));
+                // Add more logic to process message here
             }
             catch (Exception ex)
             {
