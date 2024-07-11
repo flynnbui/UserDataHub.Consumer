@@ -4,7 +4,6 @@ using System.Text;
 using System.Text.Json;
 using UserDataHub.Consumer.Core.Helper;
 using UserDataHub.Consumer.Core.Interfaces;
-using UserDataHub.Consumer.Core.Settings;
 
 namespace UserDataHubConsumer.Service;
 
@@ -16,16 +15,17 @@ public abstract class RabbitMQService : IRabbitMQService, IDisposable
     private readonly IModel _channel;
 
     private readonly string _routeKey;
-    private List<string> _queueList;
+    private string _queue;
     private readonly string eventExchange;
 
     public RabbitMQService(IServiceProvider services,
             IConfiguration configuration,
-            RabbitMQSettings rabbitMQSettings)
+            string routeKey,
+            string queueName)
     {
         _services = services;
-        _routeKey = rabbitMQSettings.RouteKey;
-        _queueList = rabbitMQSettings.QueueList;
+        _routeKey = routeKey;
+        _queue = queueName;
         try
         {
             var factory = new ConnectionFactory()
@@ -39,13 +39,11 @@ public abstract class RabbitMQService : IRabbitMQService, IDisposable
             _channel = _connection.CreateModel();
 
             eventExchange = ConfigurationHelper.GetConfiguration(configuration, "RabbitMQSettings:EventExchange");
-            foreach (var queue in _queueList)
-            {
-                _channel.QueueDeclare(queue, durable: true, exclusive: false, autoDelete: false);
-                _channel.QueueBind(queue, eventExchange, _routeKey);
-            }
 
-            
+            _channel.QueueDeclare(_queue, durable: true, exclusive: false, autoDelete: false);
+            _channel.QueueBind(_queue, eventExchange, _routeKey);
+
+
 
         }
         catch (Exception ex)
@@ -72,11 +70,8 @@ public abstract class RabbitMQService : IRabbitMQService, IDisposable
             }
         };
 
-        foreach (var queue in _queueList)
-        {
-            _channel.BasicConsume(queue, false, consumer);
-        }
-        
+        _channel.BasicConsume(_queue, false, consumer);
+
     }
 
     public void Dispose()
@@ -104,7 +99,7 @@ public abstract class RabbitMQService : IRabbitMQService, IDisposable
         {
             return JsonSerializer.Deserialize<T>(message);
         }
-        catch (JsonException ex)
+        catch (JsonException)
         {
             return null;
         }
