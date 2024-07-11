@@ -5,10 +5,10 @@ using UserDataHub.Consumer.Core.Settings;
 
 namespace UserDataHub.Consumer.Core.Services
 {
-    public class RabbitMQHosted : RabbitMQService
+    public class RabbitMQHosted2 : RabbitMQService
     {
-        public RabbitMQHosted(IServiceProvider services, IConfiguration configuration)
-            : base(services, configuration, RabbitMQSettings.RouteKey, RabbitMQSettings.QueueName)
+        public RabbitMQHosted2(IServiceProvider services, IConfiguration configuration)
+            : base(services, configuration, RabbitMQSettings.RouteKey1, RabbitMQSettings.QueueName1)
         { }
 
         protected override async Task<bool> ProcessAsync(string message)

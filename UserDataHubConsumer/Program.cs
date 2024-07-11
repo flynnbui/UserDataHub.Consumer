@@ -6,14 +6,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-var rabbitMQSettings = new RabbitMQSettings
-{
-    RouteKey = "",
-    QueueList = new List<string> { "UserRegistrationQueue", "FPT.QA." } 
-};
-
-builder.Services.AddSingleton(rabbitMQSettings);
 builder.Services.AddHostedService<RabbitMQHosted>();
 
 
